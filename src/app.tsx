@@ -19,7 +19,7 @@ function App() {
         return (
           <ProjectRegistrationPage
             onCancel={() => setActivePage("dashboard")}
-            onCreate={() => setActivePage("project-detail")}
+            onCreated={() => setActivePage("project-detail")}
           />
         );
 
