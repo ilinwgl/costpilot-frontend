@@ -3,6 +3,7 @@ import { useState } from "react";
 import {
   Button,
   Card,
+  Divider,
   Group,
   Stack,
   Text,
@@ -11,7 +12,11 @@ import {
 
 import { open } from "@tauri-apps/plugin-dialog";
 
+import LvStructure from "../components/lv-structure";
+
+
 function ProjectDetailPage() {
+  const [currentLv, setCurrentLv] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<string | null>(null);
 
   async function handleSelectLv() {
@@ -40,13 +45,18 @@ function ProjectDetailPage() {
     console.log("Import LV:", selectedFile);
 
     // TODO:
-    // Upload file to backend
-    // Parse LV
-    // Save positions
-    // Load LV structure
+    // Later:
+    // 1. Upload file to backend
+    // 2. Parse LV
+    // 3. Save LV and positions
+    // 4. Load parsed LV data
+
+    setCurrentLv(selectedFile);
+    setSelectedFile(null);
   }
 
-  const fileName = selectedFile?.split(/[\\/]/).pop();
+  const currentLvName = currentLv?.split(/[\\/]/).pop();
+  const selectedFileName = selectedFile?.split(/[\\/]/).pop();
 
   return (
     <Stack gap="xl">
@@ -58,61 +68,111 @@ function ProjectDetailPage() {
         </Text>
       </div>
 
-      {!selectedFile ? (
-        <Card withBorder radius="md" padding="xl">
-          <Stack align="center" gap="md">
-            <Title order={3}>No LV selected</Title>
+      <Card withBorder radius="md" padding="lg">
+        <Stack gap="md">
+          <Title order={3}>Project Information</Title>
 
-            <Text c="dimmed">
-              Select a Leistungsverzeichnis to continue.
-            </Text>
+          <Divider />
+
+          <Group gap="xl">
+            <div>
+              <Text size="sm" c="dimmed">
+                Project Name
+              </Text>
+
+              <Text fw={500}>
+                Frankfurt Hbf
+              </Text>
+            </div>
+
+            <div>
+              <Text size="sm" c="dimmed">
+                Project Number
+              </Text>
+
+              <Text fw={500}>
+                P-001
+              </Text>
+            </div>
+
+            <div>
+              <Text size="sm" c="dimmed">
+                Client
+              </Text>
+
+              <Text fw={500}>
+                DB InfraGO
+              </Text>
+            </div>
+          </Group>
+        </Stack>
+      </Card>
+
+      <Card withBorder radius="md" padding="lg">
+        <Group justify="space-between" align="flex-end">
+          <Stack gap="xs">
+            <Title order={3}>
+              Leistungsverzeichnis
+            </Title>
+
+            {currentLv ? (
+              <>
+                <Text size="sm" c="dimmed">
+                  Current LV
+                </Text>
+
+                <Text fw={500}>
+                  {currentLvName}
+                </Text>
+              </>
+            ) : (
+              <Text c="dimmed">
+                No LV imported.
+              </Text>
+            )}
+
+            {selectedFile && (
+              <>
+                <Text
+                  size="sm"
+                  c="dimmed"
+                  mt="sm"
+                >
+                  Selected file
+                </Text>
+
+                <Text fw={500}>
+                  {selectedFileName}
+                </Text>
+
+                <Text size="sm" c="dimmed">
+                  {selectedFile}
+                </Text>
+              </>
+            )}
+          </Stack>
+
+          <Group>
+            <Button
+              variant="default"
+              onClick={handleSelectLv}
+            >
+              {currentLv ? "Change File" : "Select File"}
+            </Button>
 
             <Button
               color="blue"
-              onClick={handleSelectLv}
+              disabled={!selectedFile}
+              onClick={handleImportLv}
             >
-              Select LV
+              Import LV
             </Button>
-          </Stack>
-        </Card>
-      ) : (
-        <Card withBorder radius="md" padding="xl">
-          <Stack gap="md">
-            <div>
-              <Title order={3}>LV selected</Title>
+          </Group>
+        </Group>
+      </Card>
 
-              <Text c="dimmed" mt="xs">
-                Ready to import.
-              </Text>
-            </div>
-
-            <div>
-              <Text fw={500}>
-                {fileName}
-              </Text>
-
-              <Text size="sm" c="dimmed">
-                {selectedFile}
-              </Text>
-            </div>
-
-            <Group>
-              <Button
-                variant="default"
-                onClick={handleSelectLv}
-              >
-                Change File
-              </Button>
-
-              <Button
-                color="blue"
-                onClick={handleImportLv}
-              >
-                Import LV
-              </Button>
-            </Group>
-          </Stack>
-        </Card>
+      {currentLv && (
+        <LvStructure />
       )}
     </Stack>
   );

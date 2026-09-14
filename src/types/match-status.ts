@@ -1,0 +1,5 @@
+export enum MatchStatus {
+  AUTO_MATCHED = "AUTO_MATCHED",
+  REVIEW_REQUIRED = "REVIEW_REQUIRED",
+  UNMATCHED = "UNMATCHED",
+}
