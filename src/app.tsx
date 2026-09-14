@@ -1,21 +1,13 @@
-import "./styles/global.css";
+import Sidebar from "./components/sidebar";
+import DashboardPage from "./pages/dashboard-page";
 
 function App() {
   return (
-    <div className="app">
-      <aside className="sidebar">
-        <h1>CostPilot</h1>
+    <div className="app-layout">
+      <Sidebar />
 
-        <nav>
-          <button>Dashboard</button>
-          <button>Projects</button>
-          <button>Settings</button>
-        </nav>
-      </aside>
-
-      <main className="content">
-        <h2>Dashboard</h2>
-        <p>Welcome to CostPilot.</p>
+      <main className="main-content">
+        <DashboardPage />
       </main>
     </div>
   );
