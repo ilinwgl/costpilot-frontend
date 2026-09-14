@@ -11,9 +11,10 @@ import {
 
 type DashboardPageProps = {
   onNewProject: () => void;
+  onOpenProject: (projectId: string) => void;
 };
 
-function DashboardPage({ onNewProject }: DashboardPageProps) {
+function DashboardPage({ onNewProject, onOpenProject }: DashboardPageProps) {
   return (
     <Stack gap="xl">
       <Group justify="space-between">
@@ -34,7 +35,13 @@ function DashboardPage({ onNewProject }: DashboardPageProps) {
         </Title>
 
         <SimpleGrid cols={{ base: 1, sm: 2, lg: 3 }}>
-          <Card withBorder radius="md" padding="lg">
+          <Card
+            withBorder
+            radius="md"
+            padding="lg"
+            style={{ cursor: "pointer" }}
+            onClick={() => onOpenProject("project-1")}
+          >
             <Stack gap="sm">
               <Title order={4}>Frankfurt Hbf</Title>
 
@@ -46,7 +53,13 @@ function DashboardPage({ onNewProject }: DashboardPageProps) {
             </Stack>
           </Card>
 
-          <Card withBorder radius="md" padding="lg">
+          <Card
+            withBorder
+            radius="md"
+            padding="lg"
+            style={{ cursor: "pointer" }}
+            onClick={() => onOpenProject("project-2")}
+          >
             <Stack gap="sm">
               <Title order={4}>Demo Project</Title>
 

@@ -9,6 +9,7 @@ import ProjectDetailPage from "./pages/project-detail-page";
 
 function App() {
   const [activePage, setActivePage] = useState("dashboard");
+  const [currentProjectId, setCurrentProjectId] = useState<string | null>(null);
 
   function renderPage() {
     switch (activePage) {
@@ -24,7 +25,13 @@ function App() {
         );
 
       case "project-detail":
-        return <ProjectDetailPage />;
+        if (!currentProjectId) {
+          return null;
+        }
+  
+        return <ProjectDetailPage
+          projectId={currentProjectId} 
+        />;
 
       case "settings":
         return <SettingsPage />;
@@ -34,6 +41,10 @@ function App() {
         return (
           <DashboardPage
             onNewProject={() => setActivePage("project-registration")}
+            onOpenProject={(projectId) => {
+              setCurrentProjectId(projectId);
+              setActivePage("project-detail");
+            }}
           />
         );
     }

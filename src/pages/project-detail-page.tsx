@@ -14,8 +14,12 @@ import { open } from "@tauri-apps/plugin-dialog";
 
 import LvStructure from "../components/lv-structure";
 
+type ProjectDetailPageProps = {
+  projectId: string | null;
+};
 
-function ProjectDetailPage() {
+function ProjectDetailPage({ projectId }: ProjectDetailPageProps) {
+  console.log("Current project:", projectId);
   const [currentLv, setCurrentLv] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<string | null>(null);
 
@@ -26,7 +30,7 @@ function ProjectDetailPage() {
       filters: [
         {
           name: "Leistungsverzeichnis",
-          extensions: ["xml", "x83"],
+          extensions: ["xml", "X83", "X81"],
         },
       ],
     });
@@ -80,9 +84,7 @@ function ProjectDetailPage() {
                 Project Name
               </Text>
 
-              <Text fw={500}>
-                Frankfurt Hbf
-              </Text>
+              <Text fw={500}>Frankfurt Hbf</Text>
             </div>
 
             <div>
@@ -90,9 +92,7 @@ function ProjectDetailPage() {
                 Project Number
               </Text>
 
-              <Text fw={500}>
-                P-001
-              </Text>
+              <Text fw={500}>P-001</Text>
             </div>
 
             <div>
@@ -100,9 +100,7 @@ function ProjectDetailPage() {
                 Client
               </Text>
 
-              <Text fw={500}>
-                DB InfraGO
-              </Text>
+              <Text fw={500}>DB InfraGO</Text>
             </div>
           </Group>
         </Stack>
@@ -111,9 +109,7 @@ function ProjectDetailPage() {
       <Card withBorder radius="md" padding="lg">
         <Group justify="space-between" align="flex-end">
           <Stack gap="xs">
-            <Title order={3}>
-              Leistungsverzeichnis
-            </Title>
+            <Title order={3}>Leistungsverzeichnis</Title>
 
             {currentLv ? (
               <>
@@ -121,29 +117,19 @@ function ProjectDetailPage() {
                   Current LV
                 </Text>
 
-                <Text fw={500}>
-                  {currentLvName}
-                </Text>
+                <Text fw={500}>{currentLvName}</Text>
               </>
             ) : (
-              <Text c="dimmed">
-                No LV imported.
-              </Text>
+              <Text c="dimmed">No LV imported.</Text>
             )}
 
             {selectedFile && (
               <>
-                <Text
-                  size="sm"
-                  c="dimmed"
-                  mt="sm"
-                >
+                <Text size="sm" c="dimmed" mt="sm">
                   Selected file
                 </Text>
 
-                <Text fw={500}>
-                  {selectedFileName}
-                </Text>
+                <Text fw={500}>{selectedFileName}</Text>
 
                 <Text size="sm" c="dimmed">
                   {selectedFile}
@@ -153,10 +139,7 @@ function ProjectDetailPage() {
           </Stack>
 
           <Group>
-            <Button
-              variant="default"
-              onClick={handleSelectLv}
-            >
+            <Button variant="default" onClick={handleSelectLv}>
               {currentLv ? "Change File" : "Select File"}
             </Button>
 
@@ -171,9 +154,7 @@ function ProjectDetailPage() {
         </Group>
       </Card>
 
-      {currentLv && (
-        <LvStructure />
-      )}
+      {currentLv && <LvStructure />}
     </Stack>
   );
 }
