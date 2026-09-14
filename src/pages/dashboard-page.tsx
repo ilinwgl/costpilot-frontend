@@ -1,44 +1,71 @@
+import {
+  Badge,
+  Button,
+  Card,
+  Group,
+  SimpleGrid,
+  Stack,
+  Text,
+  Title,
+} from "@mantine/core";
+
 function DashboardPage() {
   return (
-    <>
-      <header className="page-header">
+    <Stack gap="xl">
+      <Group justify="space-between">
         <div>
-          <h2>Dashboard</h2>
+          <Title order={2}>Dashboard</Title>
 
-          <p className="page-subtitle">
+          <Text c="dimmed">
             Manage your construction cost estimation projects.
-          </p>
+          </Text>
         </div>
 
-        <button className="primary-button">
+        <Button color="blue">
           New Project
-        </button>
-      </header>
+        </Button>
+      </Group>
 
-      <section className="content-section">
-        <h3>Recent Projects</h3>
+      <div>
+        <Title order={3} mb="md">
+          Recent Projects
+        </Title>
 
-        <div className="project-grid">
-          <div className="project-card">
-            <h4>Frankfurt Hbf</h4>
-            <p>42 Positions</p>
+        <SimpleGrid cols={{ base: 1, sm: 2, lg: 3 }}>
+          <Card withBorder radius="md" padding="lg">
+            <Stack gap="sm">
+              <Title order={4}>
+                Frankfurt Hbf
+              </Title>
 
-            <span className="project-status">
-              In Progress
-            </span>
-          </div>
+              <Text c="dimmed">
+                42 Positions
+              </Text>
 
-          <div className="project-card">
-            <h4>Demo Project</h4>
-            <p>18 Positions</p>
+              <Badge color="orange" variant="light">
+                In Progress
+              </Badge>
+            </Stack>
+          </Card>
 
-            <span className="project-status">
-              Ready
-            </span>
-          </div>
-        </div>
-      </section>
-    </>
+          <Card withBorder radius="md" padding="lg">
+            <Stack gap="sm">
+              <Title order={4}>
+                Demo Project
+              </Title>
+
+              <Text c="dimmed">
+                18 Positions
+              </Text>
+
+              <Badge color="green" variant="light">
+                Ready
+              </Badge>
+            </Stack>
+          </Card>
+        </SimpleGrid>
+      </div>
+    </Stack>
   );
 }
 

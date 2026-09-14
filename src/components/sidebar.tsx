@@ -1,23 +1,44 @@
+import {
+  Button,
+  Stack,
+  Title,
+} from "@mantine/core";
+
 function Sidebar() {
   return (
     <aside className="sidebar">
-      <div className="sidebar-header">
-        <h1 className="app-title">CostPilot</h1>
-      </div>
+      <Title order={2} mb="xl">
+        CostPilot
+      </Title>
 
-      <nav className="sidebar-nav">
-        <button className="nav-button nav-button-active">
+      <Stack gap="xs">
+        <Button
+          variant="light"
+          color="blue"
+          fullWidth
+          fz={18}
+        >
           Dashboard
-        </button>
+        </Button>
 
-        <button className="nav-button">
+        <Button
+          variant="subtle"
+          color="gray"
+          fullWidth
+          fz={18}
+        >
           Projects
-        </button>
+        </Button>
 
-        <button className="nav-button">
+        <Button
+          variant="subtle"
+          color="gray"
+          fullWidth
+          fz={18}
+        >
           Settings
-        </button>
-      </nav>
+        </Button>
+      </Stack>
     </aside>
   );
 }
